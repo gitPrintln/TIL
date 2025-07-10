@@ -15,5 +15,15 @@ int sum = Arrays.stream(ar) // 스트림 생성
           .filter(n -> n%2 == 1) // filter 통과
           .sum(); // sum 통과 결과 반환
 System.out.print(sum);
+```
+<br/>
 
+`특징`
+- 스트림 생성: 배열로 생성, 컬렉션 인스턴스를 대상으로 생성, of 메서드로 직접 데이터 전달
+- IntStream, DoubleStream, LongStream 등등 다양한 of메서드들이 있음
+- 기존의 stream을 .parallel() 호출 이후 -> 이후 연산은 병렬 처리됨
+- 스트림끼리 연결:
+```java
+Stream.concat(ss1,ss2)
+      .forEach(s -> System.out.println(S));
 ```
