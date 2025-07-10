@@ -37,10 +37,13 @@ proto --java_out=. person.proto
 ```
 - 이를 통해 Java, Python, C++, Go 등 다양한 언어로 생성 가능
 
+<br/>
+
 5. 데이터 직렬화/역직렬화
 <br/>
 - 직렬화(Serialization): 객체 -> 바이너리 데이터
 - 역직렬화(Deserialization): 바이너리 데이터 -> 객체
+
 ```java
 // Java 예제
 Person john = Person.newBuilder()
