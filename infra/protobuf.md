@@ -25,7 +25,6 @@ message Person {
     String email = 3;
 }
 ```
-
 <br/>
 
 4. 컴파일
@@ -63,6 +62,6 @@ Person parsed = Person.parseFrom(data);
 
 6. 도구/라이브러리
 <br/>
-- protoc(공식 컴파일러)
-- gRPC(원격 프로시저 호출)
-- 각 언어별 protobuf 라이브러리
+- protoc(공식 컴파일러) <br/>
+- gRPC(원격 프로시저 호출) <br/>
+- 각 언어별 protobuf 라이브러리 <br/>
