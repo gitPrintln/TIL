@@ -1,18 +1,9 @@
-# load_iris exercise
+# load_iris
 
 
 ```python
 %pip install scikit-learn seaborn matplotlib
 ```
-
-
-    Running cells with 'Python 3.10.12' requires the ipykernel package.
-
-
-    Install 'ipykernel' into the Python environment. 
-
-
-    Command: '/usr/bin/python3 -m pip install ipykernel -U --user --force-reinstall'
 
 
 ```python
@@ -23,16 +14,6 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 %matplotlib inline
 ```
-
-
-    Running cells with 'Python 3.10.12' requires the ipykernel package.
-
-
-    <a href='command:jupyter.createPythonEnvAndSelectController'>Create a Python Environment</a> with the required packages.
-
-
-    Or install 'ipykernel' using the command: '/usr/bin/python3 -m pip install ipykernel -U --user --force-reinstall'
-
 
 
 ```python
@@ -69,8 +50,6 @@ print(type(data.filename))
 
 
 ```python
-#print(type(data.data))
-#print(type(data.target))
 print(data.feature_names)
 print(data.target_names)
 print(data.DESCR)
@@ -493,7 +472,7 @@ df.plot()
 
 
     
-![png](load_iris_files/load_iris_17_1.png)
+![png](load_iris_files/load_iris_15_1.png)
     
 
 
@@ -503,19 +482,6 @@ sns.pairplot(df) #데이터에 들어 있는 각 컬럼(열)들의 모든 상관
 ```
 
 
-
-
-    <seaborn.axisgrid.PairGrid at 0x7e27e878b3a0>
-
-
-
-
-    
-![png](load_iris_files/load_iris_18_1.png)
-    
-
-
-
 ```python
 sns.pairplot(df, hue="species") # species에 따라 hue(색조)를 변경, 즉 이 값은 discret해야 한다
 plt.show()
@@ -523,71 +489,46 @@ plt.show()
 
 
     
+![png](load_iris_files/load_iris_17_0.png)
+    
+
+
+
+```python
+sns.histplot(df[df.species == "setosa"]["petal length (cm)"],
+             kde=True, label="setosa", color="blue", alpha=0.5)
+sns.rugplot(df[df.species == "setosa"]["petal length (cm)"], color="blue")
+
+sns.histplot(df[df.species != "setosa"]["petal length (cm)"],
+             kde=True, label="others", color="orange", alpha=0.5)
+sns.rugplot(df[df.species != "setosa"]["petal length (cm)"], color="orange")
+
+plt.legend()
+plt.show()
+```
+
+
+    
+![png](load_iris_files/load_iris_18_0.png)
+    
+
+
+
+```python
+# KDE 곡선
+sns.kdeplot(df[df.species == "setosa"]["petal length (cm)"], 
+            label="setosa", color="blue")
+# rug plot
+sns.rugplot(df[df.species == "setosa"]["petal length (cm)"], 
+            color="blue")
+
+plt.legend()
+plt.show()
+```
+
+
+    
 ![png](load_iris_files/load_iris_19_0.png)
-    
-
-
-
-```python
-sns.distplot(df[df.species == "setosa"]["petal length (cm)"], hist=True, rug=True, label="setosa") # 히스토그램을 그린다, 
-sns.distplot(df[df.species != "setosa"]["petal length (cm)"], hist=True, rug=True, label="others")
-plt.legend()
-plt.show()
-```
-
-    /tmp/ipykernel_9371/493996468.py:1: UserWarning: 
-    
-    `distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-    
-    Please adapt your code to use either `displot` (a figure-level function with
-    similar flexibility) or `histplot` (an axes-level function for histograms).
-    
-    For a guide to updating your code to use the new functions, please see
-    https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-    
-      sns.distplot(df[df.species == "setosa"]["petal length (cm)"], hist=True, rug=True, label="setosa") # 히스토그램을 그린다,
-    /tmp/ipykernel_9371/493996468.py:2: UserWarning: 
-    
-    `distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-    
-    Please adapt your code to use either `displot` (a figure-level function with
-    similar flexibility) or `histplot` (an axes-level function for histograms).
-    
-    For a guide to updating your code to use the new functions, please see
-    https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-    
-      sns.distplot(df[df.species != "setosa"]["petal length (cm)"], hist=True, rug=True, label="others")
-
-
-
-    
-![png](load_iris_files/load_iris_20_1.png)
-    
-
-
-
-```python
-sns.distplot(df[df.species == "setosa"]["petal length (cm)"], hist=False, rug=True, label="setosa") # rugplot
-plt.legend()
-plt.show()
-```
-
-    /tmp/ipykernel_9371/754067593.py:1: UserWarning: 
-    
-    `distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-    
-    Please adapt your code to use either `displot` (a figure-level function with
-    similar flexibility) or `kdeplot` (an axes-level function for kernel density plots).
-    
-    For a guide to updating your code to use the new functions, please see
-    https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-    
-      sns.distplot(df[df.species == "setosa"]["petal length (cm)"], hist=False, rug=True, label="setosa") # rugplot
-
-
-
-    
-![png](load_iris_files/load_iris_21_1.png)
     
 
 
@@ -681,7 +622,7 @@ df_org.tail()
 ```python
 plt.figure(figsize=(10,11))
 sns.heatmap(df_org.corr(),annot=True)
-plt.plot()
+plt.show()
 ```
 
 
@@ -693,7 +634,7 @@ plt.plot()
 
 
     
-![png](load_iris_files/load_iris_24_1.png)
+![png](load_iris_files/load_iris_22_1.png)
     
 
 
@@ -708,21 +649,86 @@ sns.FacetGrid(df,hue='species') \
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7e27dd8c9ae0>
+    <seaborn.axisgrid.FacetGrid at 0x7f6c14ebbe20>
 
 
 
 
     
-![png](load_iris_files/load_iris_25_1.png)
+![png](load_iris_files/load_iris_23_1.png)
     
 
 
 
 ```python
-sns.FacetGrid(df,hue='species') \
-.map(plt.scatter,'petal length (cm)','petal width (cm)') \
-.add_legend()
+sns.scatterplot(
+    data=df,
+    x='petal length (cm)',
+    y='petal width (cm)',
+    hue='species'
+)
+plt.show()
+```
+
+
+    
+![png](load_iris_files/load_iris_24_0.png)
+    
+
+
+
+```python
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# 그래프 간 간격 조정
+fig.subplots_adjust(hspace=0.4, wspace=0.3)
+
+# 각 특징(feature) 리스트
+features = [
+    'sepal length (cm)',
+    'sepal width (cm)',
+    'petal width (cm)',
+    'petal length (cm)'
+]
+
+# 축을 1차원으로 평탄화
+axes = axes.flatten()
+
+# 4개의 violinplot 생성
+for ax, feature in zip(axes, features):
+    sns.violinplot(x='species', y=feature, data=df, ax=ax)
+    ax.set_title(f"Distribution of {feature}")
+
+plt.show()
+```
+
+
+    
+![png](load_iris_files/load_iris_25_0.png)
+    
+
+
+
+```python
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+fig.subplots_adjust(hspace=0.4, wspace=0.3)  # 간격 조정
+
+# 특징(feature) 리스트
+features = [
+    'sepal length (cm)',
+    'sepal width (cm)',
+    'petal width (cm)',
+    'petal length (cm)'
+]
+
+# subplot 축 1차원으로 평탄화
+axes = axes.flatten()
+
+# 반복문으로 boxplot 생성
+for ax, feature in zip(axes, features):
+    sns.boxplot(x='species', y=feature, data=df, ax=ax)
+    ax.set_title(f"Boxplot of {feature}")
+
 plt.show()
 ```
 
@@ -734,21 +740,18 @@ plt.show()
 
 
 ```python
-plt.figure(figsize=(12,10))
-plt.subplot(2,2,1)
-sns.violinplot(x='species', y='sepal length (cm)',data=df) # 카테고리컬 데이터의 분포를 표시
-plt.subplot(2,2,2)
-sns.violinplot(x='species', y='sepal width (cm)',data=df)
-plt.subplot(2,2,3)
-sns.violinplot(x='species', y='petal width (cm)',data=df)
-plt.subplot(2,2,4)
-sns.violinplot(x='species', y='petal length (cm)',data=df)
+df['species'] = data.target  # 문자열 품종 이름 대신 숫자(0, 1, 2)로 저장
+plt.scatter(
+    x=df['petal length (cm)'],  # x축: 꽃잎 길이
+    y=df['petal width (cm)'],   # y축: 꽃잎 너비
+    c=df['species']             # 색상 구분: 품종 번호
+)
 ```
 
 
 
 
-    <Axes: xlabel='species', ylabel='petal length (cm)'>
+    <matplotlib.collections.PathCollection at 0x7fb714311450>
 
 
 
@@ -757,47 +760,3 @@ sns.violinplot(x='species', y='petal length (cm)',data=df)
 ![png](load_iris_files/load_iris_27_1.png)
     
 
-
-
-```python
-plt.figure(figsize=(12,10))
-plt.subplot(2,2,1)
-sns.boxplot(x='species', y='sepal length (cm)',data=df) # 데이터 집합의 범위와 중앙값 확인, outlier 확인
-plt.subplot(2,2,2)
-sns.boxplot(x='species', y='sepal width (cm)',data=df)
-plt.subplot(2,2,3)
-sns.boxplot(x='species', y='petal width (cm)',data=df)
-plt.subplot(2,2,4)
-sns.boxplot(x='species', y='petal length (cm)',data=df)
-```
-
-
-
-
-    <Axes: xlabel='species', ylabel='petal length (cm)'>
-
-
-
-
-    
-![png](load_iris_files/load_iris_28_1.png)
-    
-
-
-
-```python
-df['species'] = data.target # 숫자로 변환
-plt.scatter(x=df['petal length (cm)'], y=df['petal width (cm)'], c=df['species'])
-```
-
-
-
-
-    <matplotlib.collections.PathCollection at 0x7e27dcf10c70>
-
-
-
-
-    
-![png](load_iris_files/load_iris_29_1.png)
-    
