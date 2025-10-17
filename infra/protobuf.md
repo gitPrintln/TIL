@@ -82,3 +82,49 @@ Person parsed = Person.parseFrom(data);
 | **지원 언어**     | 거의 모든 주요 언어 지원 (Java, Python, Go, C++, JS 등) | 거의 모든 언어 (표준 내장)      |
 | **직렬화 결과**    | compact binary (바이너리 스트림)                    | readable JSON text    |
 
+<br/>
+8. gRPC와의 관계
+gRPC는 protobuf를 기본 IDL(Interface Definition Language) 로 사용.
+.proto 파일에 서비스(Service) 와 메시지(Message) 정의.
+
+예:
+```java
+syntax = "proto3";
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
+```
+protoc로 컴파일하면 자동으로 클라이언트/서버 stub 코드가 생성됨.
+HTTP/2 기반으로 스트리밍, 양방향 통신 가능.
+
+<br/>
+
+9. 버전 관리 & 호환성 설계 포인트
+Protobuf는 스키마 진화(Schema Evolution) 가 강력한 장점
+
+| 전략                     | 설명                            |
+| ---------------------- | ----------------------------- |
+| `optional`, `repeated` | 필드 존재 여부나 리스트 표현              |
+| **필드 번호(tag number)**  | 변경하면 안 됨. 이름은 바꿔도 됨.          |
+| **`reserved` 키워드**     | 삭제된 필드 번호나 이름을 예약 처리 → 재사용 방지 |
+| **default 값 주의**       | 기본값(0, false, "")으로 초기화됨      |
+
+<br/>
+10. 실무에서 자주 부딪히는 이슈
+
+| 주제                     | 요약                                               |
+| ---------------------- | ------------------------------------------------ |
+| **JSON ↔ protobuf 변환** | `JsonFormat` (Java), `MessageToJson()` 등으로 변환 가능 |
+| **버전 불일치 문제**          | 서버/클라이언트의 protobuf 버전 다르면 직렬화 에러                 |
+| **중첩 메시지 관리**          | 큰 시스템에선 메시지 구조를 분리(import)                       |
+| **proto 패키지 충돌**       | 패키지 네임 관리 주의 (namespace 충돌 방지)                   |
+| **optional 필드 처리**     | proto3는 optional을 나중에 도입했기 때문에 proto2와 다름        |
